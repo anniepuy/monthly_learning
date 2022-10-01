@@ -25,14 +25,15 @@ def monthly_learning_by_number(request, month):
     if month > len(months):
         return HttpResponseNotFound("Invalid Month")
     forward_month = months[month - 1]
-    forward_path = reverse("monthly-learning", args=[forward_month])
+    forward_path = reverse("learning", args=[forward_month])
     return HttpResponseRedirect(forward_path)
 
 def monthly_learning(request, month):
     try:
         learning_text = learning_logs[month]
-        return HttpResponse(learning_text)
+        response_data = f"<h1>{learning_text}</h1>"
+        return HttpResponse(response_data)
     except:
-        return HttpResponseNotFound("Is there another month?  Amazing, I must have slept through it. Sorry, not found.")
+        return HttpResponseNotFound("<h1>Is there another month?  Amazing, I must have slept through it. Sorry, not found.</h1>")
     
 
